@@ -1,0 +1,37 @@
+diff --git a/dwm.c b/dwm.c
+index 169adcb..fbd6c61 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1978,6 +1989,32 @@ view(const Arg *arg) {
+ 	arrange(selmon);
+ }
+ 
++void
++nextview(const Arg *arg) {
++
++    if ((selmon->tagset[selmon->seltags] << 1) > 256) {
++        return;
++    }
++
++    selmon->tagset[selmon->seltags^1] = (selmon->tagset[selmon->seltags] << 1) & TAGMASK;
++    selmon->seltags ^= 1;
++	focus(NULL);
++	arrange(selmon);
++}
++
++void
++prevview(const Arg *arg) {
++
++    if (selmon->tagset[selmon->seltags] >> 1 < (1 & TAGMASK)) {
++        return;
++    }
++
++    selmon->tagset[selmon->seltags^1] = (selmon->tagset[selmon->seltags] >> 1) & TAGMASK;
++    selmon->seltags ^= 1;
++	focus(NULL);
++	arrange(selmon);
++}
++
+ Client *
+ wintoclient(Window w) {
+ 	Client *c;
