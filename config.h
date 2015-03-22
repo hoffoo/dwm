@@ -2,12 +2,11 @@
 
 /* appearance */
 static const char *fonts[] = {
-    "DejaVu Sans Mono:size=6",
-    "VL Gothic:size=6",
-    "WenQuanYi Micro Hei:size=6",
+    "DejaVu Sans Mono:size=10.5",
+    "VL Gothic:size=10.5",
+    "WenQuanYi Micro Hei:size=10.5",
 };
-static const char dmenufont[] = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
-static const char normbordercolor[] = "#444444";
+static const char normbordercolor[] = "#000000";
 static const char normbgcolor[]     = "#222222";
 static const char normfgcolor[]     = "#bbbbbb";
 static const char selbordercolor[]  = "#005577";
@@ -15,7 +14,7 @@ static const char selbgcolor[]      = "#005577";
 static const char selfgcolor[]      = "#eeeeee";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 0;       /* snap pixel */
-static const Bool showbar           = True;     /* False means no bar */
+static const Bool showbar           = False;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
@@ -55,9 +54,9 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "/home/marin/usr/dmenu/dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "/usr/bin/rxvt-unicode", "-fn", "xft:Inconsolata:size=8:antialias=true:hinting=true", "-fb", "xft:Inconsolata:size=8:antialias=true:hinting=true", NULL };
+//static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenucmd[] = { "/home/marin/usr/dmenu/dmenu_run",  "-l", "10", "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *termcmd[]  = { "/usr/bin/rxvt-unicode", "-fn", "xft:Inconsolata:size=16:antialias=true:hinting=true", "-fb", "xft:Inconsolata:size=16:antialias=true:hinting=true", NULL };
 
 static const char *chromiumcmd[]  = { "/usr/bin/chromium-browser", NULL };
 
@@ -95,6 +94,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                         7)
 	TAGKEYS(                        XK_9,                         8)
 	{ MODKEY|ShiftMask,             XK_q,         quit,           {0} },
+	{ MODKEY,                       XK_Right,     nextview,       {0} },
+	{ MODKEY,                       XK_Left,      prevview,       {0} },
 	{ ControlMask,                  XK_Super_L,   spawn,          {.v = chromiumcmd } },
 	{ 0,                            XK_Super_L,   spawn,          {.v = termcmd } },
 };
