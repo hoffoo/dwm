@@ -6,7 +6,7 @@ static const char *fonts[] = {
     "VL Gothic:size=10.5",
     "WenQuanYi Micro Hei:size=10.5",
 };
-static const char normbordercolor[] = "#000000";
+static const char normbordercolor[] = "#333333";
 static const char normbgcolor[]     = "#222222";
 static const char normfgcolor[]     = "#bbbbbb";
 static const char selbordercolor[]  = "#005577";
@@ -58,7 +58,7 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = { "/home/marin/usr/dmenu/dmenu_run",  "-l", "10", "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "/usr/bin/rxvt-unicode", "-fn", "xft:Inconsolata:size=16:antialias=true:hinting=true", "-fb", "xft:Inconsolata:size=16:antialias=true:hinting=true", NULL };
 
-static const char *chromiumcmd[]  = { "/usr/bin/chromium-browser", NULL };
+static const char *chromiumcmd[]  = { "/usr/bin/google-chrome", NULL };
 
 static Key keys[] = {
 	/* modifier                     key           function        argument */
