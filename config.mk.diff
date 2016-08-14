@@ -1,0 +1,11 @@
+--- config.mk.orig	2016-08-14 11:00:41.844224417 -0700
++++ config.mk	2016-08-14 11:03:35.479651748 -0700
+@@ -18,7 +18,7 @@
+ FREETYPELIBS = -lfontconfig -lXft
+ FREETYPEINC = /usr/include/freetype2
+ # OpenBSD (uncomment)
+-FREETYPEINC = ${X11INC}/freetype2
++# FREETYPEINC = ${X11INC}/freetype2
+ 
+ # includes and libs
+ INCS = -I${X11INC} -I${FREETYPEINC}
