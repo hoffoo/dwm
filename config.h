@@ -4,9 +4,9 @@
 //static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
 //static const char font[]            = "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-1";
 static const char *fonts[] = {
-	"monospace:size=10"
+	"fixed:size=10"
 };
-static const char dmenufont[]       = "monospace:size=10";
+static const char dmenufont[]       = "fixed:size=10";
 
 static const char normbordercolor[] = "#444444";
 static const char normbgcolor[]     = "#222222";
@@ -23,10 +23,10 @@ static const Bool topbar            = True;     /* False means bottom bar */
 #define NUMCOLORS         4
 static const char colors[NUMCOLORS][MAXCOLORS][8] = {
   // border   foreground background
-  { "#000033", "#dddddd", "#000033" },  // normal
-  { "#000088", "#ffffff", "#000088" },  // selected
+  { "#444444", "#bbbbbb", "#222222" },  // normal
+  { "#005577", "#eeeeee", "#005577" },  // selected
   { "#ff0000", "#000000", "#ffff00" },  // urgent/warning  (black on yellow)
-  { "#ff0000", "#ffffff", "#ff0000" },  // error (white on red)
+  { "#ff0000", "#ffffff", "#ff0000" },  // error
   // add more here
 };
 
