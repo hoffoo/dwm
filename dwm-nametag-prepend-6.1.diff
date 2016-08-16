@@ -34,7 +34,7 @@ index 1bbb4b3..fefdd69 100644
  static Client *nexttiled(Client *c);
  static void pop(Client *);
  static void propertynotify(XEvent *e);
-@@ -1174,6 +1175,34 @@ movemouse(const Arg *arg) {
+@@ -1174,6 +1175,40 @@ movemouse(const Arg *arg) {
  	}
  }
  
@@ -55,13 +55,19 @@ index 1bbb4b3..fefdd69 100644
 +		fprintf(stderr, "dwm: pclose failed: %s\n", strerror(errno));
 +	if(!p)
 +		return;
-+	if((p = strchr(name, '\n')))
++	if((p = strchr(name, '\n'))) {
 +		*p = '\0';
++   }
++   int blank = !strlen(name);
 +
 +	for(i = 0; i < LENGTH(tags); i++)
 +		if(selmon->tagset[selmon->seltags] & (1 << i)) {
-+			sprintf(tags[i], TAG_PREPEND, i+1);
-+			strcat(tags[i], name);
++           if (blank) {
++               sprintf(tags[i], "%1i", i+1);
++           } else {
++   			sprintf(tags[i], TAG_PREPEND, i+1);
++	    		strcat(tags[i], name);
++           }
 +		}
 +	drawbars();
 +}
