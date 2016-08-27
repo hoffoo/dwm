@@ -37,8 +37,8 @@ static char tags[][MAX_TAGLEN] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
+	{ "Steam",     NULL,       NULL,       0,            True,        -1 },
+	{ "st",        NULL,       NULL,       0,            True,        -1 },
 };
 
 /* layout(s) */
@@ -69,6 +69,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "/usr/bin/urxvt", "-fn", "xft:Inconsolata:size=13:antialias=true:hinting=true", "-fb", "xft:Inconsolata:size=13:antialias=true:hinting=true", NULL };
 static const char *chromiumcmd[]  = { "/usr/bin/chromium", NULL };
+static const char *surfcmd[]  = { "/usr/bin/surf", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -86,6 +87,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+    { MODKEY|ShiftMask,             XK_m,      togglefullscreen,{0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -105,7 +107,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ ControlMask,                  XK_Super_L,   spawn,          {.v = chromiumcmd } },
+	{ ControlMask,                  XK_Super_L,   spawn,          {.v = surfcmd } },
+	{ ControlMask|ShiftMask,        XK_Super_L,   spawn,          {.v = chromiumcmd } },
 	{ 0,                            XK_Super_L,   spawn,          {.v = termcmd } },
 };
 
