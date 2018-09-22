@@ -20,6 +20,7 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 #define NUMCOLORS         4
+#define MAXCOLORS         3
 static const char colors[NUMCOLORS][MAXCOLORS][8] = {
   // border   foreground background
   { "#444444", "#bbbbbb", "#222222" },  // normal
@@ -66,10 +67,9 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-l", "15", NULL };
 static const char *termcmd[]  = { "/usr/bin/urxvt", "-fn", "xft:Inconsolata:size=13:antialias=true:hinting=true", "-fb", "xft:Inconsolata:size=13:antialias=true:hinting=true", NULL };
 static const char *chromiumcmd[]  = { "/usr/bin/chromium", NULL };
-static const char *surfcmd[]  = { "/usr/bin/surf", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -107,8 +107,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ ControlMask,                  XK_Super_L,   spawn,          {.v = surfcmd } },
-	{ ControlMask|ShiftMask,        XK_Super_L,   spawn,          {.v = chromiumcmd } },
+	{ ControlMask,                  XK_Super_L,   spawn,          {.v = chromiumcmd } },
 	{ 0,                            XK_Super_L,   spawn,          {.v = termcmd } },
 };
 
