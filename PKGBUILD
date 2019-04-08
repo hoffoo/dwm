@@ -40,4 +40,6 @@ package() {
   make PREFIX=/usr DESTDIR="$pkgdir" install
   install -m644 -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   install -m644 -D README "$pkgdir/usr/share/doc/$pkgname/README"
-} # vim:set ts=2 sw=2 et:
+}
+
+# vim:set ts=2 sw=2 et:
