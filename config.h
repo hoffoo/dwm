@@ -55,7 +55,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -71,6 +71,12 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "/usr/bin/urxvt", "-fn", "xft:Inconsolata:size=13:antialias=true:hinting=true", "-fb", "xft:Inconsolata:size=13:antialias=true:hinting=true", NULL };
 static const char *chromiumcmd[]  = { "/usr/bin/chromium", NULL };
 static const char *xscreensavercmd[]  = { "/usr/bin/xscreensaver-command", "-lock", NULL };
+
+static const char *brightness_up[] = {"/usr/bin/gmux_backlight", "+100", NULL};
+static const char *brightness_down[] = {"/usr/bin/gmux_backlight", "-100", NULL};
+
+static const int XK_brightness_up = 0x1008ff05;
+static const int XK_brightness_down = 0x1008ff06;
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -107,10 +113,12 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ ControlMask,                  XK_Alt_L,   spawn,          {.v = chromiumcmd } },
-	{ 0,                            XK_Alt_L,   spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_l,       spawn,          {.v = xscreensavercmd } },
+    { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+    { ControlMask,                  XK_Super_L,  spawn,        {.v = chromiumcmd } },
+    { 0,                            XK_Super_L,  spawn,        {.v = termcmd } },
+    { MODKEY|ControlMask,           XK_l,        spawn,        {.v = xscreensavercmd } },
+    { 0,                            XK_brightness_up,   spawn, {.v = brightness_up } },
+    { 0,                            XK_brightness_down, spawn, {.v = brightness_down } },
 };
 
 /* button definitions */

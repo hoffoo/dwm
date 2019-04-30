@@ -1,6 +1,6 @@
 
-dwm-1:6.1-1-x86_64.pkg.tar.xz
-dwm-6.1.tar.gz
+*.tar.xz
+*.tar.gz
 dwm-pertag-6.1.diff
 dwm-statuscolors-6.1.diff
 
