@@ -1,0 +1,49 @@
+--- a/dwm.c	2019-10-12 14:03:01.647864914 -0700
++++ b/dwm.c	2019-10-12 13:51:22.320936923 -0700
+@@ -209,6 +209,7 @@
+ static void showhide(Client *c);
+ static void sigchld(int unused);
+ static void spawn(const Arg *arg);
++static void keysh(const Arg *arg);
+ static void tag(const Arg *arg);
+ static void tagmon(const Arg *arg);
+ static void tile(Monitor *);
+@@ -1049,7 +1050,15 @@
+ 		if (keysym == keys[i].keysym
+ 		&& CLEANMASK(keys[i].mod) == CLEANMASK(ev->state)
+ 		&& keys[i].func)
+-			keys[i].func(&(keys[i].arg));
++            if (keys[i].func == keysh) {
++                char *strkey = malloc(10);
++                sprintf(strkey, "0x%x", keysym);
++                Arg arg = {.v = strkey};
++                keysh(&(arg));
++                free(strkey);
++            }
++            else
++                keys[i].func(&(keys[i].arg));
+ }
+ 
+ void
+@@ -1730,6 +1739,21 @@
+ }
+ 
+ void
++keysh(const Arg *arg)
++{
++    if (fork() == 0){
++		if (dpy)
++			close(ConnectionNumber(dpy));
++		setsid();
++        char *cmd[] = {keyshpath, arg->v, NULL};
++		execvp(keyshpath, (char **)cmd);
++		fprintf(stderr, "dwm: execvp %s", ((char **)arg->v)[0]);
++		perror(" failed");
++		exit(EXIT_SUCCESS);
++    }
++}
++
++void
+ tag(const Arg *arg)
+ {
+ 	if (selmon->sel && arg->ui & TAGMASK) {

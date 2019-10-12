@@ -4,7 +4,7 @@
 //static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
 //static const char font[]            = "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-1";
 static const char *fonts[] = {
-	"fixed:size=10"
+    "fixed:size=10"
 };
 static const char dmenufont[]       = "fixed:size=10";
 
@@ -72,11 +72,18 @@ static const char *termcmd[]  = { "/usr/bin/urxvt", "-fn", "xft:Inconsolata:size
 static const char *chromiumcmd[]  = { "/usr/bin/chromium", NULL };
 static const char *xscreensavercmd[]  = { "/usr/bin/xscreensaver-command", "-lock", NULL };
 
-static const char *brightness_up[] = {"/usr/bin/gmux_backlight", "+100", NULL};
-static const char *brightness_down[] = {"/usr/bin/gmux_backlight", "-100", NULL};
+/* path to keysh script */
+#define keyshpath "/home/marin/.keysh"
 
-static const int XK_brightness_up = 0x1008ff05;
-static const int XK_brightness_down = 0x1008ff06;
+#define XF86MonBrightnessUp     0x1008ff02
+#define XF86MonBrightnessDown   0x1008ff03
+#define XF86AudioPrev           0x1008ff16
+#define XF86AudioPlay           0x1008ff14
+#define XF86AudioNext           0x1008ff17
+#define XF86AudioMute           0x1008ff12
+#define XF86AudioLowerVolume    0x1008ff11
+#define XF86AudioRaiseVolume    0x1008ff13
+
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -117,8 +124,15 @@ static Key keys[] = {
     { ControlMask,                  XK_Super_L,  spawn,        {.v = chromiumcmd } },
     { 0,                            XK_Super_L,  spawn,        {.v = termcmd } },
     { MODKEY|ControlMask,           XK_l,        spawn,        {.v = xscreensavercmd } },
-    { 0,                            XK_brightness_up,   spawn, {.v = brightness_up } },
-    { 0,                            XK_brightness_down, spawn, {.v = brightness_down } },
+    { 0,                            XF86MonBrightnessUp,       keysh, {0} },
+    { 0,                            XF86MonBrightnessDown,     keysh, {0} },
+    { 0,                            XF86AudioPrev,             keysh, {0} },
+    { 0,                            XF86AudioPlay,             keysh, {0} },
+    { 0,                            XF86AudioNext,             keysh, {0} },
+    { 0,                            XF86AudioMute,             keysh, {0} },
+    { 0,                            XF86AudioLowerVolume,      keysh, {0} },
+    { 0,                            XF86AudioRaiseVolume,      keysh, {0} },
+
 };
 
 /* button definitions */
