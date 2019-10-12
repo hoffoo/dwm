@@ -1,8 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-//static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
-//static const char font[]            = "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-1";
 static const char *fonts[] = {
     "fixed:size=10"
 };
@@ -45,7 +43,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
