@@ -130,6 +130,12 @@ static Key keys[] = {
     { 0,                            XF86AudioMute,             keysh, {0} },
     { 0,                            XF86AudioLowerVolume,      keysh, {0} },
     { 0,                            XF86AudioRaiseVolume,      keysh, {0} },
+    { 0,                            XK_F5,                     keysh, {0} },
+    { 0,                            XK_F6,                     keysh, {0} },
+    { 0,                            XK_F7,                     keysh, {0} },
+    { 0,                            XK_F8,                     keysh, {0} },
+    { 0,                            XK_F9,                     keysh, {0} },
+    { 0,                            XK_F10,                    keysh, {0} },
 
 };
 
