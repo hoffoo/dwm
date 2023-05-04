@@ -9,13 +9,14 @@ static const char dmenufont[]       = "fixed:size=10";
 static const char normbordercolor[] = "#444444";
 static const char normbgcolor[]     = "#222222";
 static const char normfgcolor[]     = "#bbbbbb";
-static const char selbordercolor[]  = "#005577";
+static const char selbordercolor[]  = "#8B0000";
 static const char selbgcolor[]      = "#005577";
 static const char selfgcolor[]      = "#eeeeee";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 0;        /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
+static const int lockfullscreen     = 1;
 
 #define NUMCOLORS         4
 #define MAXCOLORS         3
@@ -35,9 +36,10 @@ static const char colors[NUMCOLORS][MAXCOLORS][8] = {
 static char tags[][MAX_TAGLEN] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Steam",     NULL,       NULL,       0,            True,        -1 },
-	{ "st",        NULL,       NULL,       0,            True,        -1 },
+	/* class         instance    title       tags mask     isfloating   monitor */
+	{ "Steam",       NULL,       NULL,       0,            True,        -1 },
+	{ "Zoom",        NULL,       NULL,       0,            True,        -1 },
+	{ "Leafpad",     NULL,       NULL,       0,            True,        -1 },
 };
 
 /* layout(s) */
@@ -66,9 +68,11 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-l", "15", NULL };
-static const char *termcmd[]  = { "/usr/bin/urxvt", "-fn", "xft:Inconsolata:size=13:antialias=true:hinting=true", "-fb", "xft:Inconsolata:size=13:antialias=true:hinting=true", NULL };
-static const char *chromiumcmd[]  = { "/usr/bin/chromium", NULL };
+/* static const char *termcmd[]  = { "/usr/bin/urxvt", "-fn", "xft:Inconsolata:size=13:antialias=true:hinting=true", "-fb", "xft:Inconsolata:size=13:antialias=true:hinting=true", NULL }; */
+static const char *termcmd[]  = { "/usr/bin/urxvt", NULL };
+static const char *chromiumcmd[]  = { "/usr/bin/qutebrowser", NULL };
 static const char *xscreensavercmd[]  = { "/usr/bin/xscreensaver-command", "-lock", NULL };
+static const char *dunstclosecmd[]  = { "/usr/bin/dunstctl", "close-all", NULL };
 
 /* path to keysh script */
 #define keyshpath "/home/marin/.keysh"
@@ -81,6 +85,7 @@ static const char *xscreensavercmd[]  = { "/usr/bin/xscreensaver-command", "-loc
 #define XF86AudioMute           0x1008ff12
 #define XF86AudioLowerVolume    0x1008ff11
 #define XF86AudioRaiseVolume    0x1008ff13
+#define XF86PowerOff            0x1008ff2a
 
 
 static Key keys[] = {
@@ -99,7 +104,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-    { MODKEY|ShiftMask,             XK_m,      togglefullscreen,{0} },
+/* { MODKEY|ShiftMask,             XK_m,      togglefullscreen,{0} }, */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -120,8 +125,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
     { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
     { ControlMask,                  XK_Super_L,  spawn,        {.v = chromiumcmd } },
+    { ControlMask,                  XK_space,  spawn,        {.v = dunstclosecmd } },
     { 0,                            XK_Super_L,  spawn,        {.v = termcmd } },
     { MODKEY|ControlMask,           XK_l,        spawn,        {.v = xscreensavercmd } },
+    /*
     { 0,                            XF86MonBrightnessUp,       keysh, {0} },
     { 0,                            XF86MonBrightnessDown,     keysh, {0} },
     { 0,                            XF86AudioPrev,             keysh, {0} },
@@ -136,6 +143,7 @@ static Key keys[] = {
     { 0,                            XK_F8,                     keysh, {0} },
     { 0,                            XK_F9,                     keysh, {0} },
     { 0,                            XK_F10,                    keysh, {0} },
+    { 0,                            XF86PowerOff,              keysh, {0} },*/
 
 };
 
