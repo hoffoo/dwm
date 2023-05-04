@@ -16,17 +16,18 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 0;        /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
-static const int lockfullscreen     = 1;
 
 #define NUMCOLORS         4
 #define MAXCOLORS         3
-static const char colors[NUMCOLORS][MAXCOLORS][8] = {
-  // border   foreground background
-  { "#444444", "#bbbbbb", "#222222" },  // normal
-  { "#005577", "#eeeeee", "#005577" },  // selected
+static const char *colors[][3] = {
+  /*               fg         bg         border   */
+  [SchemeNorm] = { "#bbbbbb", "#222222", "#444444" },  // normal
+  [SchemeSel]  = { "#eeeeee", "#005577", "#8B0000" },  // selected
+  /*
   { "#ff0000", "#000000", "#ffff00" },  // urgent/warning  (black on yellow)
   { "#ff0000", "#ffffff", "#ff0000" },  // error
   // add more here
+  */
 };
 
 /* tagging */
@@ -46,6 +47,7 @@ static const Rule rules[] = {
 static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -104,7 +106,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-/* { MODKEY|ShiftMask,             XK_m,      togglefullscreen,{0} }, */
+    { MODKEY,                       XK_s,      togglecanfocusfloating,   {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -128,7 +130,6 @@ static Key keys[] = {
     { ControlMask,                  XK_space,  spawn,        {.v = dunstclosecmd } },
     { 0,                            XK_Super_L,  spawn,        {.v = termcmd } },
     { MODKEY|ControlMask,           XK_l,        spawn,        {.v = xscreensavercmd } },
-    /*
     { 0,                            XF86MonBrightnessUp,       keysh, {0} },
     { 0,                            XF86MonBrightnessDown,     keysh, {0} },
     { 0,                            XF86AudioPrev,             keysh, {0} },
@@ -143,13 +144,12 @@ static Key keys[] = {
     { 0,                            XK_F8,                     keysh, {0} },
     { 0,                            XK_F9,                     keysh, {0} },
     { 0,                            XK_F10,                    keysh, {0} },
-    { 0,                            XF86PowerOff,              keysh, {0} },*/
-
+    { 0,                            XF86PowerOff,              keysh, {0} },
 };
 
 /* button definitions */
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
-static Button buttons[] = {
+static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },

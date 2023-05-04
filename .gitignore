@@ -1,8 +1,8 @@
-
 *.tar.xz
 *.tar.gz
-dwm-pertag-6.1.diff
-dwm-statuscolors-6.1.diff
+*.zst
 
 pkg/
 src/
+
+dwm-canfocusfloating-20210724-b914109.diff
