@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include "xkbcommon/xkbcommon-keysyms.h"
 
 /* appearance */
 static const char *fonts[] = {
@@ -57,7 +58,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -78,17 +79,6 @@ static const char *dunstclosecmd[]  = { "/usr/bin/dunstctl", "close-all", NULL }
 
 /* path to keysh script */
 #define keyshpath "/home/marin/.keysh"
-
-#define XF86MonBrightnessUp     0x1008ff02
-#define XF86MonBrightnessDown   0x1008ff03
-#define XF86AudioPrev           0x1008ff16
-#define XF86AudioPlay           0x1008ff14
-#define XF86AudioNext           0x1008ff17
-#define XF86AudioMute           0x1008ff12
-#define XF86AudioLowerVolume    0x1008ff11
-#define XF86AudioRaiseVolume    0x1008ff13
-#define XF86PowerOff            0x1008ff2a
-
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -126,25 +116,26 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
     { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-    { ControlMask,                  XK_Alt_L,  spawn,        {.v = browsercmd } },
+    { ControlMask,                  XK_Super_L,  spawn,        {.v = browsercmd } },
     { ControlMask,                  XK_space,  spawn,        {.v = dunstclosecmd } },
-    { 0,                            XK_Alt_L,  spawn,        {.v = termcmd } },
+    { 0,                            XK_Super_L,  spawn,         {.v = termcmd } },
     { MODKEY|ControlMask,           XK_l,        spawn,        {.v = xscreensavercmd } },
-    { 0,                            XF86MonBrightnessUp,       keysh, {0} },
-    { 0,                            XF86MonBrightnessDown,     keysh, {0} },
-    { 0,                            XF86AudioPrev,             keysh, {0} },
-    { 0,                            XF86AudioPlay,             keysh, {0} },
-    { 0,                            XF86AudioNext,             keysh, {0} },
-    { 0,                            XF86AudioMute,             keysh, {0} },
-    { 0,                            XF86AudioLowerVolume,      keysh, {0} },
-    { 0,                            XF86AudioRaiseVolume,      keysh, {0} },
+    { 0,                            XKB_KEY_XF86MonBrightnessUp,       keysh, {0} },
+    { 0,                            XKB_KEY_XF86MonBrightnessDown,     keysh, {0} },
+    { 0,                            XKB_KEY_XF86AudioPrev,             keysh, {0} },
+    { 0,                            XKB_KEY_XF86AudioPlay,             keysh, {0} },
+    { 0,                            XKB_KEY_XF86AudioNext,             keysh, {0} },
+    { 0,                            XKB_KEY_XF86AudioMute,             keysh, {0} },
+    { 0,                            XKB_KEY_XF86AudioLowerVolume,      keysh, {0} },
+    { 0,                            XKB_KEY_XF86AudioRaiseVolume,      keysh, {0} },
     { 0,                            XK_F5,                     keysh, {0} },
     { 0,                            XK_F6,                     keysh, {0} },
     { 0,                            XK_F7,                     keysh, {0} },
     { 0,                            XK_F8,                     keysh, {0} },
     { 0,                            XK_F9,                     keysh, {0} },
     { 0,                            XK_F10,                    keysh, {0} },
-    { 0,                            XF86PowerOff,              keysh, {0} },
+    { 0,                            XKB_KEY_XF86PowerOff,              keysh, {0} },
+    { 0,                            XKB_KEY_Print,             keysh, {0} },
 };
 
 /* button definitions */
