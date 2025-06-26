@@ -1,5 +1,5 @@
 pkgname=dwm
-pkgver=6.4
+pkgver=6.5
 pkgrel=1
 pkgdesc="A dynamic window manager for X"
 url="http://dwm.suckless.org"
@@ -12,14 +12,16 @@ conflicts=('dwm')
 epoch=1
 source=("http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz"
         "config.h"
-        "dwm-nametag-prepend-6.1.diff"
+        "https://dwm.suckless.org/patches/nametag/dwm-nametag-prepend-6.2.diff"
         "https://dwm.suckless.org/patches/canfocusfloating/dwm-canfocusfloating-20210724-b914109.diff"
+        "https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff"
         "dwm-keysh.diff"
         )
-md5sums=('008da068c3884ae675f65b9458b43c02'
+md5sums=('446e84f5b151a1d4483fd72fd647e47e'
          'SKIP'
-         'ac4a03571c5c2471f540ee268ea724d8'
+         'a1e618145a60d2e70b42334177e7cca1'
          '871cc0712e450e0dfb5e44f324f48687'
+         'fe418b7cf2e01f59c05595a8336e6020'
          'SKIP'
          )
 
@@ -32,8 +34,9 @@ build() {
   cd $srcdir/$pkgname-$pkgver
   cp $srcdir/config.h config.h
   echopatch patch -p1 -i $srcdir/dwm-canfocusfloating-20210724-b914109.diff
-  echopatch patch -p1 -i $srcdir/dwm-nametag-prepend-6.1.diff
+  echopatch patch -p1 -i $srcdir/dwm-nametag-prepend-6.2.diff
   echopatch patch -p1 -i $srcdir/dwm-keysh.diff
+  echopatch patch -p1 -i $srcdir/dwm-pertag-20200914-61bb8b2.diff
   make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11 FREETYPEINC=/usr/include/freetype2
 }
 

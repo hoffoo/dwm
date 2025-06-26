@@ -1,8 +1,7 @@
 *.tar.xz
 *.tar.gz
 *.zst
+*.diff
 
 pkg/
 src/
-
-dwm-canfocusfloating-20210724-b914109.diff

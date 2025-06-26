@@ -1,32 +1,7 @@
---- a/dwm.c	2019-10-12 14:03:01.647864914 -0700
-+++ b/dwm.c	2019-10-12 13:51:22.320936923 -0700
-@@ -209,6 +209,7 @@
- static void showhide(Client *c);
- static void sigchld(int unused);
- static void spawn(const Arg *arg);
-+static void keysh(const Arg *arg);
- static void tag(const Arg *arg);
- static void tagmon(const Arg *arg);
- static void tile(Monitor *);
-@@ -1049,7 +1050,15 @@
- 		if (keysym == keys[i].keysym
- 		&& CLEANMASK(keys[i].mod) == CLEANMASK(ev->state)
- 		&& keys[i].func)
--			keys[i].func(&(keys[i].arg));
-+            if (keys[i].func == keysh) {
-+                char *strkey = malloc(10);
-+                sprintf(strkey, "0x%x", keysym);
-+                Arg arg = {.v = strkey};
-+                keysh(&(arg));
-+                free(strkey);
-+            }
-+            else
-+                keys[i].func(&(keys[i].arg));
- }
- 
- void
-@@ -1730,6 +1739,21 @@
- }
+--- a/dwm.c	2025-06-26 13:33:50.810284569 -0700
++++ b/dwm.c	2025-06-26 13:34:58.473676639 -0700
+@@ -1002,6 +1002,21 @@
+ #endif /* XINERAMA */
  
  void
 +keysh(const Arg *arg)
@@ -44,6 +19,23 @@
 +}
 +
 +void
- tag(const Arg *arg)
+ keypress(XEvent *e)
  {
- 	if (selmon->sel && arg->ui & TAGMASK) {
+ 	unsigned int i;
+@@ -1014,7 +1029,15 @@
+ 		if (keysym == keys[i].keysym
+ 		&& CLEANMASK(keys[i].mod) == CLEANMASK(ev->state)
+ 		&& keys[i].func)
+-			keys[i].func(&(keys[i].arg));
++            if (keys[i].func == keysh) {
++                char *strkey = malloc(10);
++                sprintf(strkey, "0x%x", keysym);
++                Arg arg = {.v = strkey};
++                keysh(&(arg));
++                free(strkey);
++            }
++            else
++                keys[i].func(&(keys[i].arg));
+ }
+ 
+ void
